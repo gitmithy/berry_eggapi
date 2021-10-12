@@ -23,7 +23,7 @@ $ npm stop
 | egg-cors | 解决跨域问题 |
 | egg-jwt | 生成 token |
 | egg-redis | redis 数据缓存 |
-| egg-validate | 参数校验 |
+| egg-valparams | 参数校验 |
 | md5 | md5 加密 |
 
 **可卸载插件**
@@ -57,7 +57,15 @@ config.cors = {
   origin: '*',
   allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
 };
+// 开启post请求（关闭csrf规范）
+config.security = {
+  csrf: {
+    enable: false,
+  },
+  // domainWhiteList: [ 'http://localhost:3000' ],
+};
 ```
+
 
 #### egg-jwt 的使用
 - 配置 config/plugin.js
@@ -106,17 +114,26 @@ config.validate = {
   // validateRoot: false,   // 限制被验证值必须是一个对象。
 };
 ```
-#### egg-validate 参数校验
+#### egg-valparams 参数校验
+
+- 配置 config/plugin.js
+
+```js
+exports.valparams = {
+  enable : true,
+  package: 'egg-valparams'
+};
+```
 
 - 配置config/config.default.js
 
 ```js
-exports.validate = {
-  enable: true,
-  package: 'egg-validate',
+// 参数校验
+exports.valparams = {
+  locale: 'zh-cn',
+  throwError: false,
 };
 ```
-
 #### egg-sequelize 数据模型
 
 ### 项目目录/主要文件描述

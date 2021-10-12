@@ -13,7 +13,7 @@ exports.redis = {
   enable: false,
   package: 'egg-redis',
 };
-exports.validate = {
+exports.valparams = {
   enable: true,
-  package: 'egg-validate',
+  package: 'egg-valparams',
 };
