@@ -23,6 +23,7 @@ $ npm stop
 | egg-cors | 解决跨域问题 |
 | egg-jwt | 生成 token |
 | egg-redis | redis 数据缓存 |
+| egg-validate | 参数校验 |
 | md5 | md5 加密 |
 
 **可卸载插件**
@@ -62,8 +63,8 @@ config.cors = {
 - 配置 config/plugin.js
 
 ```js
+ //plugin.js
 exports.jwt = {
-  //plugin.js
   enable: true,
   package: 'egg-jwt',
 };
@@ -77,8 +78,44 @@ config.jwt = {
 };
 ```
 
+- 分别配置config/config.local.js config.prod.js config.test.js
+因为上线后每台服务器的配置后有所区别
+```js
+config.redis = {
+  client: {
+    port: 15001, // redis端口
+    host: '192.168.10.1', // redis ip
+    password: '123456', // redis 密码
+    db: 0,
+  },
+};
+```
 #### egg-redis 的使用
+- 配置 config/plugin.js
 
+```js
+exports.redis = {
+  enable: false,
+  package: 'egg-redis',
+};
+```
+- 配置config/config.default.js
+```js
+config.validate = {
+  convert: true, // 对参数可以使用convertType规则进行类型转换
+  // validateRoot: false,   // 限制被验证值必须是一个对象。
+};
+```
+#### egg-validate 参数校验
+
+- 配置config/config.default.js
+
+```js
+exports.validate = {
+  enable: true,
+  package: 'egg-validate',
+};
+```
 
 #### egg-sequelize 数据模型
 

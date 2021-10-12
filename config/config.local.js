@@ -22,6 +22,14 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
+  config.redis = {
+    client: {
+      port: 15001, // redis端口
+      host: '192.168.10.1', // redis ip
+      password: '123456', // redis 密码
+      db: 0,
+    },
+  };
   return {
     ...config,
     ...userConfig,
