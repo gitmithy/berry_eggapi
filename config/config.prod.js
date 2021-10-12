@@ -22,15 +22,6 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
-  // 跨域配置
-  config.cors = {
-    origin: '*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
-  };
-  // jwt加密配置
-  config.jwt = {
-    secret: '123egg_api456',
-  };
   return {
     ...config,
     ...userConfig,
