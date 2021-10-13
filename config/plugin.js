@@ -21,3 +21,7 @@ exports.swaggerdoc = {
   enable: true,
   package: 'egg-swagger-doc',
 };
+exports.sequelize = {
+  enable: true,
+  package: 'egg-sequelize',
+};

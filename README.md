@@ -31,6 +31,7 @@ $ npm stop
 | ---- | ---- |
 | node-ldap | 获取活动目录 ad 域数据 |
 | egg-sequelize | 数据模型 |
+| sequelize-cli | 管理sequelize工具 |
 | mysql2 | mysql 模块 |
 | nodemailer | 发邮件 |
 | uuid | uuid |
@@ -135,7 +136,77 @@ exports.valparams = {
 };
 ```
 #### egg-sequelize 数据模型
+- 配置 config/plugin.js
+```js
+exports.sequelize = {
+  enable: true,
+  package: 'egg-sequelize',
+};
+```
+- 分别配置config/config.local.js config.prod.js config.test.js
+因为上线后每台服务器的配置后有所区别
+```js
+config.sequelize = {
+    dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
+    database: 'egg-api-local',
+    host: 'localhost',
+    port: 3306,
+    username: 'root',
+    password: '123456',
+    // 中国时区
+    timezone: '+08:00',
+    define: {
+      // 取消数据表名复数
+      freezeTableName: true,
+      // 自动写入时间戳 created_at updated_at
+      timestamps: true,
+      // 字段生成软删除时间戳 deleted_at
+      paranoid: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+      // 所有驼峰命名格式化
+      underscored: true,
+    },
+  };
+```
 
+- 安装sequelize-cli
+```sh
+npm install --save-dev sequelize-cli
+```
+- 在项目根目录下新建一个 .sequelizerc 配置文件：
+
+```js
+'use strict';
+
+const path = require('path');
+
+module.exports = {
+  config: path.join(__dirname, 'database/config.json'),
+  'migrations-path': path.join(__dirname, 'database/migrations'),
+  'seeders-path': path.join(__dirname, 'database/seeders'),
+  'models-path': path.join(__dirname, 'app/model'),
+};
+```
+- 初始化 Migrations 配置文件和目录
+
+```sh
+npx sequelize init:config
+npx sequelize init:migrations
+```
+执行完后会生成 database/config.json 文件和 database/migrations 目录，我们修改一下 database/config.json 中的内容，将其改成我们项目中使用的数据库配置：
+然后通过去创建数据库
+```sh
+#创建数据库
+npx sequelize db:create 
+# 升级数据库
+npx sequelize db:migrate
+# 如果有问题需要回滚，可以通过 `db:migrate:undo` 回退一个变更
+npx sequelize db:migrate:undo
+# 可以通过 `db:migrate:undo:all` 回退到初始状态
+npx sequelize db:migrate:undo:all
+```
 
 ### egg-swagger-doc
 文档的使用参考以下链接：
