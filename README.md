@@ -304,14 +304,19 @@ class LoginController extends Controller {
 
 ### 项目目录/主要文件描述
 
-| 目录/主要文件  | 描述         |
-| -------------- | ------------ |
+| 目录/主要文件    | 描述         |
+| -------------- | ----------- |
 | app/controller | 控制器       |
 | app/service    | 业务层       |
 | app/middleware | 中间件       |
 | app/model      | 数据模型     |
-| app/public     | 存放静态资源 |
-| app/router.js  | 存放静态资源 |
+| app/public     | 存放静态资源  |
+| app/router.js  | 存放静态资源  |
+| app/contract   | 配置swagger请求和响应体 |
+| app/extend     | 拓展egg的配置 |
+| config/plugin.js | 项目插件配置 |
+| config/config.{env}.js | 不同环境的配置文件 |
+| .sequelizerc | egg-sequeli的配置文件 |
 
 ### 配置开发环境
 
