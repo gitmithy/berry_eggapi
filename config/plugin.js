@@ -17,3 +17,7 @@ exports.valparams = {
   enable: true,
   package: 'egg-valparams',
 };
+exports.swaggerdoc = {
+  enable: true,
+  package: 'egg-swagger-doc',
+};

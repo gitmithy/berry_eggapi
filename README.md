@@ -24,7 +24,7 @@ $ npm stop
 | egg-jwt | 生成 token |
 | egg-redis | redis 数据缓存 |
 | egg-valparams | 参数校验 |
-| md5 | md5 加密 |
+| crypto | 数据加密 |
 
 **可卸载插件**
 | 插件名 | 描述 |
@@ -135,6 +135,60 @@ exports.valparams = {
 };
 ```
 #### egg-sequelize 数据模型
+
+
+### egg-swagger-doc
+文档的使用参考以下链接：
+- https://www.npmjs.com/package/egg-swagger-doc
+- https://www.jianshu.com/p/a47a12f030cb
+
+- 配置 config/plugin.js
+
+```js
+exports.swaggerdoc = {
+  enable: true,
+  package: 'egg-swagger-doc',
+};
+```
+- 配置config/config.default.js
+
+```js
+// egg-swagger-doc 配置信息。
+  config.swaggerdoc = {
+    dirScanner: './app/controller', // 配置自动扫描的控制器路径。
+    // 接口文档的标题，描述或其它。
+    apiInfo: {
+      title: 'EGG-API', // 接口文档的标题。
+      description: 'swagger-ui for EGG document.', // 接口文档描述。
+      version: '1.0.0', // 接口文档版本。
+    },
+    schemes: [ 'http', 'https' ], // 配置支持的协议。
+    consumes: [ 'application/json' ], // 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html。
+    produces: [ 'application/json' ], // 指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回。
+    securityDefinitions: { // 配置接口安全授权方式。
+      // apikey: {
+      //   type: 'apiKey',
+      //   name: 'clientkey',
+      //   in: 'header',
+      // },
+      // oauth2: {
+      //   type: 'oauth2',
+      //   tokenUrl: 'http://petstore.swagger.io/oauth/dialog',
+      //   flow: 'password',
+      //   scopes: {
+      //     'write:access_token': 'write access_token',
+      //     'read:access_token': 'read access_token',
+      //   },
+      // },
+    },
+    enableSecurity: false, // 是否启用授权，默认 false（不启用）。
+    // enableValidate: true,    // 是否启用参数校验，默认 true（启用）。
+    routerMap: true, // 是否启用自动生成路由，默认 true (启用)。
+    enable: true, // 默认 true (启用)。
+  };
+```
+- 在app目录下新建文件夹contract
+在里面书写对应接口的请求和响应的body
 
 ### 项目目录/主要文件描述
 

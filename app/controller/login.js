@@ -1,8 +1,17 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-
+/**
+* @controller LoginController
+*/
 class LoginController extends Controller {
+  /**
+    * @summary 用户登录。
+    * @description 用户登录。
+    * @router post /login/userLogin
+    * @request body userLoginRequest
+    * @response 200 userLoginResponse 返回结果
+    */
   async userLogin() {
     const { ctx } = this;
     ctx.validate({
@@ -11,14 +20,13 @@ class LoginController extends Controller {
     });
     if (ctx.paramErrors) {
       // get error infos from `ctx.paramErrors`;
-      console.log(ctx.paramErrors);
-      ctx.body = {
-        message: ctx.paramErrors[0].err[0],
-        success: false,
-        code: 200,
-      };
+      // ctx.body = {
+      //   message: ctx.paramErrors[0].err[0],
+      //   success: false,
+      // };
+      ctx.fail(ctx.paramErrors[0].err[0]);
     } else {
-      ctx.body = 'login';
+      ctx.success('login', '成功');
     }
 
   }
