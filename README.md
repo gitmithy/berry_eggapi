@@ -301,6 +301,7 @@ class LoginController extends Controller {
   }
 }
 ```
+最后通过http://127.0.0.1:7001/swagger-ui.html查看接口
 
 ### 项目目录/主要文件描述
 
