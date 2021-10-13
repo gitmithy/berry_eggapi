@@ -189,6 +189,47 @@ exports.swaggerdoc = {
 ```
 - 在app目录下新建文件夹contract
 在里面书写对应接口的请求和响应的body
+```js
+//书写格式
+// 登录接口响应数据
+  userLoginResponse: {
+    data: { type: 'loginResponse' },
+    message: { type: 'string', description: '响应信息' },
+    success: { type: 'boolean', description: '是否请求成功' },
+    code: { type: 'number', description: '响应码,200:成功,否则异常', example: 200 },
+  },
+  loginResponse: {
+    token: { type: 'string', description: '用户token' },
+  },
+```
+在控制器中的写法
+```js
+/**
+* @controller LoginController 必须写，区分是哪个类
+*/
+class LoginController extends Controller {
+  /**
+    * @summary 用户登录
+    * @description 用户登录
+    * @router post /login/userLogin
+    * @request body userLoginRequest
+    * @response 200 userLoginResponse 返回结果
+    */
+  async userLogin() {
+    const { ctx } = this;
+    ctx.validate({
+      account: { type: 'string', required: true, desc: '登录账号' },
+      password: { type: 'string', required: true, desc: '密码' },
+    });
+    if (ctx.paramErrors) {
+      ctx.fail(ctx.paramErrors[0].err[0]);
+    } else {
+      ctx.success('login', '成功');
+    }
+
+  }
+}
+```
 
 ### 项目目录/主要文件描述
 
